@@ -20,6 +20,8 @@ Scenario('test something',  ({ I, homePage, registerPage, created_accountPage })
     registerPage.verifyRegisterPageName();
     registerPage.fillNewUserForm(NEW_USER);
     registerPage.clickSubscribeLabel();
-    pause();
+    registerPage.clickontinueButton();
+    registerPage.clickContinueButton();
     created_accountPage.verifyCreatedAccountPageName();
+    pause();
 });
