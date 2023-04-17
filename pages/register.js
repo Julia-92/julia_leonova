@@ -30,14 +30,13 @@ module.exports = {
     I.click(this.subscribeLabel);
   },
 
-  clickContinueButton() {
-    I.click(this.continueButton);
-  },
-
   clickPrivacyPolicyRadio() {
     I.click(this.privacyPolicyRadio);
   },
 
+  clickContinueButton() {
+    I.click(this.continueButton);
+  },
   verifyCreatedAccountPageName() {
     I.see('Your Account Has Been Created!');
   }

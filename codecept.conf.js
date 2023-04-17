@@ -26,6 +26,7 @@ exports.config = {
     I: './steps_file.js',
     homePage: "./pages/home.js",
     registerPage: "./pages/register.js"
-  }
+  },
+  
   name: 'julia_leonova'
 }
