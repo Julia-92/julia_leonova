@@ -17,6 +17,6 @@ Scenario('test something',  ({ I, homePage, registerPage }) => {
     registerPage.clickSubscribeLabel();
     registerPage.clickContinueButton();
     registerPage.clickPrivacyPolicyRadio();
-    created_accountPage.verifyCreatedAccountPageName();
+    registerPage.verifyCreatedAccountPageName();
     pause();
 });

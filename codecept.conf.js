@@ -25,8 +25,7 @@ exports.config = {
   include: {
     I: './steps_file.js',
     homePage: "./pages/home.js",
-    registerPage: "./pages/register.js",
-    created_accountPage: "./pages/created_account.js"
-  },
+    registerPage: "./pages/register.js"
+  }
   name: 'julia_leonova'
 }
