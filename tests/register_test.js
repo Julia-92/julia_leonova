@@ -13,7 +13,7 @@ const NEW_USER = {
     passwordConfirm: "eM8x3xTJ4vzVN",
 }
 
-Scenario('test something',  ({ I, homePage }) => {
+Scenario('test something',  ({ I, homePage, registerPage, created_accountPage }) => {
     I.amOnPage('http://opencart.qatestlab.net/index.php');
     homePage.clickMyAccountButton();
     homePage.clickMyRegisterLink();
