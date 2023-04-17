@@ -23,18 +23,22 @@ module.exports = {
     I.fillField(this.emailField, user.email); 
     I.fillField(this.phoneField, user.phone); 
     I.fillField(this.passwordField, user.password); 
-    I.fillField(this.passwordConfirmField, user.passwordConfirm); 
+    I.fillField(this.passwordConfirmField, user.password); 
   },
 
   clickSubscribeLabel() {
     I.click(this.subscribeLabel);
   },
 
-  clickontinueButton() {
-    I.click(this.ontinueButton);
+  clickContinueButton() {
+    I.click(this.continueButton);
   },
 
-  clickContinueButton() {
+  clickPrivacyPolicyRadio() {
     I.click(this.privacyPolicyRadio);
+  },
+
+  verifyCreatedAccountPageName() {
+    I.see('Your Account Has Been Created!');
   }
 }
