@@ -7,9 +7,9 @@ module.exports = {
   phoneField: {xpath: '//*[@id="input-telephone"]'},
   passwordField: {xpath: '//*[@id="input-password"]'},
   passwordConfirmField: {xpath: '//*[@id="input-confirm"]'},
-  subscribeLabel: {xpath: '//*[@id="content"]/form/fieldset[3]/div/div/label[1]'},
-  privacyPolicyRadio: {xpath: '//*[@id="content"]/form/div/div/input[1]'},
-  continueButton: {xpath: '//*[@id="content"]/form/div/div/input[2]'},
+  subscribeLabel: {xpath: '//div/label[@class="radio-inline"][1]'},
+  privacyPolicyRadio: {xpath: '//input[@name="agree"]'},
+  continueButton: {xpath: '//input[@value="Continue"]'},
   
 
 
