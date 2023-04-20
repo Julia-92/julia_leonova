@@ -22,7 +22,7 @@ module.exports = {
   postcodeField: {xpath: '//input[@name="postcode"]'},
   countryToggle: {xpath: '(//div/a[@class="sbSelector"])[1]'},
   chooseCountryLink: {xpath: '//li[.="Ukraine"]'},
-  regionToggle: {xpath: '//a[@class="sbSelector sbFocus"]'},
+  regionToggle: {xpath: '//div/a[contains(text(), "Please Select")]'},
   chooseRegionLink: {xpath: "//li/a[contains(text(),'Kharkivs')]"},
   step1Toggle: {xpath: '//a[@data-toggle="collapse"]'},
   
