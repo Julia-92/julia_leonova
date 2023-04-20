@@ -9,7 +9,7 @@ module.exports = {
   addToCartButton: {xpath: '//button[@id="button-cart"]'},
   dropdownCartIcon: {xpath: '//button[@class="toggle"]'},
   checkoutLink: {xpath: '//a[@class="btn-primary btn-r"]'},
-  guestCheckout: {xpath: '//label[@for="accountguest1"]'},
+  guestCheckout: {xpath: '(//div[@class="radio"])[2]'},
   step1Continue: {xpath: '//input[@id="button-account"]'},
   firstNameField: {xpath: '//input[@name="firstname"]'},
   lastNameField: {xpath: '//input[@name="lastname"]'},
@@ -20,10 +20,11 @@ module.exports = {
   addressField: {xpath: '//input[@name="address_1"]'},
   cityField: {xpath: '//input[@name="city"]'},
   postcodeField: {xpath: '//input[@name="postcode"]'},
-  countryToggle: {xpath: '(//div[@class="form-group required"]/div[@class="sbHolder"])[1]'},
+  countryToggle: {xpath: '(//div/a[@class="sbSelector"])[1]'},
   chooseCountryLink: {xpath: '//li[.="Ukraine"]'},
-  regionToggle: {xpath: '(//div[@class="form-group required"]/div[@class="sbHolder"])[2]'},
+  regionToggle: {xpath: '//a[@class="sbSelector sbFocus"]'},
   chooseRegionLink: {xpath: "//li/a[contains(text(),'Kharkivs')]"},
+  step1Toggle: {xpath: '//a[@data-toggle="collapse"]'},
   
   
   removeItems: {xpath: '//i[@class="linearicons-trash"]'},
@@ -61,6 +62,12 @@ module.exports = {
     I.click(this.checkoutLink);
   },
 
+  clickStep1Toggle() {
+    I.click(this.step1Toggle);
+  },
+  
+
+
   clickGuestCheckout() {
     I.click(this.guestCheckout);
   },
@@ -76,10 +83,10 @@ module.exports = {
   fillCheckoutForm2(checkout) {
     I.fillField(this.firstNameField, checkout.firstName);
     I.fillField(this.lastNameField, checkout.lastName); 
-    I.fillField(this.emailField, checkout.email); 
-    I.fillField(this.phoneField, checkout.phone); 
-    I.fillField(this.passwordField, checkout.password); 
-    I.fillField(this.passwordConfirmField, checkout.password); 
+    //I.fillField(this.emailField, checkout.email); 
+    //I.fillField(this.phoneField, checkout.phone); 
+    //I.fillField(this.passwordField, checkout.password); 
+    //I.fillField(this.passwordConfirmField, checkout.password); 
     I.fillField(this.addressField, checkout.address); 
     I.fillField(this.cityField, checkout.city); 
     I.fillField(this.postcodeField, checkout.postcode);

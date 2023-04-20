@@ -24,8 +24,10 @@ Scenario.only('buy product',  ({ I, homePage }) => {
     homePage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
     homePage.clickCheckout();
-    homePage.clickGuestCheckout();
-    homePage.clickStep1Continue();
+    //homePage.clickStep1Toggle();
+    //I.waitForVisible({xpath: '//input[@id="button-account"]'});
+    //homePage.clickGuestCheckout();
+    //homePage.clickStep1Continue();
     homePage.fillCheckoutForm2(USER);
     homePage.clickCountryToggle();
     homePage.chooseCountry();
