@@ -4,7 +4,7 @@ module.exports = {
   myAccountButton: {xpath: '(//span[.="My Account"])'},
   myRegisterLink: {xpath: '(//a[.="Register"])'},
   submitButton: {xpath: '//input[@type="submit"]'},
-  selectField: {xpath: '(//div/a[.="--- Please Select ---"])[1]'},
+  selectField: {xpath: '//div/a[.="--- Please Select ---"]'},
   colorField: {xpath: '(//ul[@class="sbOptions"]/li/a)[2]'},
   addToCartButton: {xpath: '//button[@id="button-cart"]'},
   dropdownCartIcon: {xpath: '//button[@class="toggle"]'},
@@ -25,6 +25,9 @@ module.exports = {
   regionToggle: {xpath: '//div/a[contains(text(), "Please Select")]'},
   chooseRegionLink: {xpath: "//li/a[contains(text(),'Kharkivs')]"},
   step1Toggle: {xpath: '//a[@data-toggle="collapse"]'},
+  continueButton: {xpath: '//input[@value="Continue"]'},
+  agree: {xpath: '//label[@for="agree1"]'},
+  confirmOrderButton: {xpath: '//input[@value="Confirm Order"]'},
   
   
   removeItems: {xpath: '//i[@class="linearicons-trash"]'},
@@ -108,9 +111,23 @@ module.exports = {
     I.click(this.chooseRegionLink);
   },
 
-
-
-  clickRemoveItems() {
-    I.click(this.removeItems);
+  clickContinueButton() {
+    I.click(this.continueButton);
   },
+  
+  clickAgree() {
+    I.click(this.agree);
+  },
+
+  clickConfirmOrderButton() {
+    I.click(this.confirmOrderButton);
+  },
+  
+
+  //clickRemoveItems() {
+  //  I.click(this.removeItems);
+  //},
+
+
+  
 }

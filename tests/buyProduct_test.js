@@ -15,9 +15,9 @@ Feature('purchase');
 Scenario.only('buy product',  ({ I, homePage }) => {
    
     I.login(USER);
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&path=29&product_id=43');
-    homePage.clickDropdownCartIcon();
-    homePage.clickRemoveItems();
+    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
+    //homePage.clickDropdownCartIcon();
+    //homePage.clickRemoveItems();
 
     homePage.clickSelectField();
     homePage.clickColor();
@@ -30,9 +30,19 @@ Scenario.only('buy product',  ({ I, homePage }) => {
     //homePage.clickStep1Continue();
     homePage.fillCheckoutForm2(USER);
     homePage.clickCountryToggle();
-    homePage.chooseCountry();
-    homePage.clickRegionToggle();
-    homePage.chooseRegion();
+    //homePage.chooseCountry();
+    //homePage.clickRegionToggle();
+    //homePage.chooseRegion();
+    homePage.clickContinueButton();
+    homePage.clickContinueButton();
+    I.waitForVisible({xpath: '//input[@value="Continue"]'});
+    homePage.clickContinueButton();
+    //I.waitForVisible({xpath: '//label[@for="agree1"]'});
+    homePage.clickAgree();
+    homePage.clickContinueButton();
+    //homePage.clickAgree();
 
+    homePage.clickContinueButton();
+   
     pause();
 });
