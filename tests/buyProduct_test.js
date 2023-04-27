@@ -40,7 +40,8 @@ Scenario.only('buy product',  ({ I, homePage }) => {
     //I.waitForVisible({xpath: '//label[@for="agree1"]'});
     homePage.clickAgree();
     homePage.clickContinueButton();
-    //homePage.clickAgree();
+    homePage.clickContinueButton();
+    homePage.clickAgree();
 
     homePage.clickContinueButton();
    
