@@ -36,13 +36,13 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
     checkoutPage.clickAgree();
     checkoutPage.clickContinueButton();
 
-    const itemPrice = checkoutPage.grabItemPrice();
-    const itemPriceNum = itemPrice;
+    const itemPrice = await checkoutPage.grabItemPrice();
+    const itemPriceNum = +itemPrice;
     console.log(itemPriceNum);
-    const flatShippingRate = checkoutPage.grabFlatShippingRate();
+    const flatShippingRate = await checkoutPage.grabFlatShippingRate();
     const flatShippingRateNum = +flatShippingRate.slice(1);
     console.log(flatShippingRateNum);
-    const totalPrice = checkoutPage.grabTotalPrice();
+    const totalPrice = await checkoutPage.grabTotalPrice();
     const totalPriceNum = +totalPrice.slice(1);
     console.log(totalPriceNum);
 
