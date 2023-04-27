@@ -12,7 +12,7 @@ const USER = {
 
 Feature('purchase');
 
-Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage }) => {
+Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage, checkPricesPage }) => {
    
     I.login(USER);
     homePage.clickDropdownCartIcon();
@@ -35,21 +35,16 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
     checkoutPage.clickContinueButton();
     checkoutPage.clickAgree();
     checkoutPage.clickContinueButton();
-
-    const itemPrice = await checkoutPage.grabItemPrice();
-    const itemPriceNum = +itemPrice;
-    console.log(itemPriceNum);
-    const flatShippingRate = await checkoutPage.grabFlatShippingRate();
-    const flatShippingRateNum = +flatShippingRate.slice(1);
-    console.log(flatShippingRateNum);
-    const totalPrice = await checkoutPage.grabTotalPrice();
-    const totalPriceNum = +totalPrice.slice(1);
-    console.log(totalPriceNum);
-
-    I.assertEqual(itemPriceNum+flatShippingRateNum, totalPriceNum, 'prices are not in match');
+    await checkoutPage.grabPrice();
+    await checkoutPage.grabItemPrice();
+    await checkoutPage.grabFlatShippingRate();
+    await checkoutPage.grabTotalPrice();
+    await checkPricesPage.checkPrices();
     checkoutPage.clickConfirmOrderButton();
     I.see('Your order has been placed!');
     pause();
 });
+
+
 
 

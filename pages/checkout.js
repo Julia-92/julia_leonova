@@ -71,4 +71,6 @@ module.exports = {
     return await I.grabTextFrom(this.totalPriceText);
   },
 
+ 
+
 }
