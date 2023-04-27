@@ -57,20 +57,22 @@ module.exports = {
     I.click(this.confirmOrderButton);
   },
 
-  
-
   async grabItemPrice() {
-    return await I.grabTextFrom(this.itemPriceText);
+    const ItemPrice = await I.grabTextFrom(this.itemPriceText);
+    const numItemPrice = +ItemPrice.slice(1);
+    return numItemPrice;
   },
   
   async grabFlatShippingRate() {
-    return await I.grabTextFrom(this.flatShippingRateText);
+    const FlatShippingRate = await I.grabTextFrom(this.flatShippingRateText);
+    const numFlatShippingRate = +FlatShippingRate.slice(1);
+    return numFlatShippingRate;
   },
 
   async grabTotalPrice() {
-    return await I.grabTextFrom(this.totalPriceText);
+    const TotalPrice = await I.grabTextFrom(this.totalPriceText);
+    const numTotalPrice = +TotalPrice.slice(1);
+    return numTotalPrice;
   },
-
- 
 
 }

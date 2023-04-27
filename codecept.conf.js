@@ -32,7 +32,6 @@ exports.config = {
     registerPage: "./pages/register.js",
     checkoutPage: "./pages/checkout.js",
     productPage: "./pages/product.js",
-    checkPricesPage: "./pages/checkPrices.js"
   },
 
   name: 'julia_leonova'
