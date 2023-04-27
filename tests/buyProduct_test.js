@@ -15,19 +15,19 @@ Feature('purchase');
 Scenario.only('buy product',  async ({ I, homePage }) => {
    
     I.login(USER);
+    homePage.clickDropdownCartIcon();
+    let numOfElements = await I.grabNumberOfVisibleElements('//i[@class="linearicons-trash"]');
+    if(numOfElements) {
+        homePage.clickRemoveItems();
+    };
+    
     I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
-    //homePage.clickDropdownCartIcon();
-    //homePage.clickRemoveItems();
-
     homePage.clickSelectField();
     homePage.clickColor();
     homePage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
     homePage.clickCheckout();
     //homePage.clickStep1Toggle();
-    //I.waitForVisible({xpath: '//input[@id="button-account"]'});
-    //homePage.clickGuestCheckout();
-    //homePage.clickStep1Continue();
     homePage.fillCheckoutForm2(USER);
     homePage.clickCountryToggle();
     //homePage.chooseCountry();

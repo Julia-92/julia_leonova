@@ -123,9 +123,9 @@ module.exports = {
   },
   
 
-  //clickRemoveItems() {
-  //  I.click(this.removeItems);
-  //},
+  clickRemoveItems() {
+    I.click(this.removeItems);
+  },
 
 
   
