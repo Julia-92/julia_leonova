@@ -29,8 +29,10 @@ exports.config = {
   include: {
     I: './steps_file.js',
     homePage: "./pages/home.js",
-    registerPage: "./pages/register.js"
+    registerPage: "./pages/register.js",
+    checkoutPage: "./pages/checkout.js",
+    productPage: "./pages/product.js"
   },
-  
+
   name: 'julia_leonova'
 }

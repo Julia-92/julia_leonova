@@ -12,7 +12,7 @@ const USER = {
 
 Feature('purchase');
 
-Scenario.only('buy product',  async ({ I, homePage }) => {
+Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage }) => {
    
     I.login(USER);
     homePage.clickDropdownCartIcon();
@@ -22,36 +22,32 @@ Scenario.only('buy product',  async ({ I, homePage }) => {
     };
     
     I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
-    homePage.clickSelectField();
-    homePage.clickColor();
-    homePage.clickAddToCartButton();
+    productPage.clickSelectField();
+    productPage.clickColor();
+    productPage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
     homePage.clickCheckout();
-    //homePage.clickStep1Toggle();
-    homePage.fillCheckoutForm2(USER);
-    homePage.clickCountryToggle();
-    //homePage.chooseCountry();
-    
-    homePage.clickContinueButton();
-    homePage.clickContinueButton();
-    homePage.clickContinueButton();
-    //I.waitForVisible({xpath: '//label[@for="agree1"]'});
-    homePage.clickContinueButton();
-    homePage.clickAgree();
-    homePage.clickContinueButton();
+    checkoutPage.fillCheckoutForm2(USER);
+    checkoutPage.clickCountryToggle();
+    checkoutPage.clickContinueButton();
+    checkoutPage.clickContinueButton();
+    checkoutPage.clickContinueButton();
+    checkoutPage.clickContinueButton();
+    checkoutPage.clickAgree();
+    checkoutPage.clickContinueButton();
 
-    const itemPrice = await I.grabTextFrom({xpath: '(//tbody/tr/td)[last()]'});
+    const itemPrice = await homePage.grabItemPrice;
     const itemPriceNum = +itemPrice.slice(1);
     console.log(itemPriceNum);
-    const flatShippingRate = await I.grabTextFrom({xpath: '(//tfoot/tr/td[@class="text-right"])[4]'});
+    const flatShippingRate = await homePage.grabFlatShippingRate;
     const flatShippingRateNum = +flatShippingRate.slice(1);
     console.log(flatShippingRateNum);
-    const totalPrice = await I.grabTextFrom({xpath: '(//tfoot/tr/td[@class="text-right"])[6]'});
+    const totalPrice = await homePage.grabTotalPrice;
     const totalPriceNum = +totalPrice.slice(1);
     console.log(totalPriceNum);
 
     I.assertEqual(itemPriceNum+flatShippingRateNum, totalPriceNum, 'prices are not in match');
-    homePage.clickConfirmOrderButton();
+    checkoutPage.clickConfirmOrderButton();
     I.see('Your order has been placed!');
     pause();
 });
