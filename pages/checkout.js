@@ -60,15 +60,15 @@ module.exports = {
   
 
   async grabItemPrice() {
-    await I.grabTextFrom(this.itemPriceText);
+    return await I.grabTextFrom(this.itemPriceText);
   },
   
   async grabFlatShippingRate() {
-    await I.grabTextFrom(this.flatShippingRateText);
+    return await I.grabTextFrom(this.flatShippingRateText);
   },
 
   async grabTotalPrice() {
-    await I.grabTextFrom(this.totalPriceText);
+    return await I.grabTextFrom(this.totalPriceText);
   },
 
 }
