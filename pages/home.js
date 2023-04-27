@@ -26,9 +26,8 @@ module.exports = {
   chooseRegionLink: {xpath: "//li/a[contains(text(),'Kharkivs')]"},
   step1Toggle: {xpath: '//a[@data-toggle="collapse"]'},
   continueButton: {xpath: '(//input[@value="Continue"])[last()]'},
-  agree: {xpath: '//label[@for="agree1"]'},
+  agree: {xpath: '//input[@name="agree"]'},
   confirmOrderButton: {xpath: '//input[@value="Confirm Order"]'},
-  
   
   removeItems: {xpath: '//i[@class="linearicons-trash"]'},
 
