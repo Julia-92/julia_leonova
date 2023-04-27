@@ -22,9 +22,9 @@ exports.config = {
       browser: 'chromium'
     },
 
-    "ChaiWrapper" : {
-      "require" : " codeceptjs-chai "
-    }
+    "ChaiWrapper": {
+      "require": "codeceptjs-chai",
+    },
   },
   include: {
     I: './steps_file.js',

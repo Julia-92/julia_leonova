@@ -50,7 +50,9 @@ Scenario.only('buy product',  async ({ I, homePage }) => {
     const totalPriceNum = +totalPrice.slice(1);
     console.log(totalPriceNum);
 
-    //homePage.clickConfirmOrderButton();
+    I.assertEqual(itemPriceNum+flatShippingRateNum, totalPriceNum, 'prices are not in match');
+    homePage.clickConfirmOrderButton();
+    I.see('Your order has been placed!');
     pause();
 });
 
