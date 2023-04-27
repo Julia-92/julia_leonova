@@ -29,10 +29,11 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
     homePage.clickCheckout();
     checkoutPage.fillCheckoutForm2(USER);
     checkoutPage.clickCountryToggle();
-    checkoutPage.clickContinueButton();
-    checkoutPage.clickContinueButton();
-    checkoutPage.clickContinueButton();
-    checkoutPage.clickContinueButton();
+    
+    for (let i = 0; i < 4; i++) {
+        checkoutPage.clickContinueButton();
+    };
+
     checkoutPage.clickAgree();
     checkoutPage.clickContinueButton();
 
@@ -45,7 +46,6 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
     I.assertEqual(itemPrice+flatShippingRate, totalPrice, 'prices are not in match');
     checkoutPage.clickConfirmOrderButton();
     I.see('Your order has been placed!');
-    pause();
 });
 
 
