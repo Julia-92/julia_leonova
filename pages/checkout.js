@@ -60,7 +60,7 @@ module.exports = {
   
 
   grabItemPrice() {
-    I.grabTextFrom(this.itemPriceText);
+    await I.grabTextFrom(this.itemPriceText);
   },
   
   grabFlatShippingRate() {
