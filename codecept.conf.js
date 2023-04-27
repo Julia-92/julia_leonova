@@ -20,6 +20,10 @@ exports.config = {
       waitForTimeout: 5000,
       show: true,
       browser: 'chromium'
+    },
+
+    "ChaiWrapper" : {
+      "require" : " codeceptjs-chai "
     }
   },
   include: {

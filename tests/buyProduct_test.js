@@ -12,7 +12,7 @@ const USER = {
 
 Feature('purchase');
 
-Scenario.only('buy product',  ({ I, homePage }) => {
+Scenario.only('buy product',  async ({ I, homePage }) => {
    
     I.login(USER);
     I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
@@ -31,8 +31,7 @@ Scenario.only('buy product',  ({ I, homePage }) => {
     homePage.fillCheckoutForm2(USER);
     homePage.clickCountryToggle();
     //homePage.chooseCountry();
-    //homePage.clickRegionToggle();
-    //homePage.chooseRegion();
+    
     homePage.clickContinueButton();
     homePage.clickContinueButton();
     homePage.clickContinueButton();
@@ -40,11 +39,19 @@ Scenario.only('buy product',  ({ I, homePage }) => {
     homePage.clickContinueButton();
     homePage.clickAgree();
     homePage.clickContinueButton();
-    //homePage.clickContinueButton();
-    //homePage.clickAgree();
 
-    //homePage.clickContinueButton();
-    homePage.clickConfirmOrderButton();
-   
+    const itemPrice = await I.grabTextFrom({xpath: '(//tbody/tr/td)[last()]'});
+    const itemPriceNum = +itemPrice.slice(1);
+    console.log(itemPriceNum);
+    const flatShippingRate = await I.grabTextFrom({xpath: '(//tfoot/tr/td[@class="text-right"])[4]'});
+    const flatShippingRateNum = +flatShippingRate.slice(1);
+    console.log(flatShippingRateNum);
+    const totalPrice = await I.grabTextFrom({xpath: '(//tfoot/tr/td[@class="text-right"])[6]'});
+    const totalPriceNum = +totalPrice.slice(1);
+    console.log(totalPriceNum);
+
+    //homePage.clickConfirmOrderButton();
     pause();
 });
+
+
