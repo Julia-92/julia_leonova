@@ -35,15 +35,15 @@ Scenario.only('buy product',  ({ I, homePage }) => {
     //homePage.chooseRegion();
     homePage.clickContinueButton();
     homePage.clickContinueButton();
-    I.waitForVisible({xpath: '//input[@value="Continue"]'});
     homePage.clickContinueButton();
     //I.waitForVisible({xpath: '//label[@for="agree1"]'});
+    //homePage.clickContinueButton();
     homePage.clickAgree();
     homePage.clickContinueButton();
-    homePage.clickContinueButton();
-    homePage.clickAgree();
+    //homePage.clickContinueButton();
+    //homePage.clickAgree();
 
-    homePage.clickContinueButton();
+    //homePage.clickContinueButton();
    
     pause();
 });

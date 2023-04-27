@@ -25,7 +25,7 @@ module.exports = {
   regionToggle: {xpath: '//div/a[contains(text(), "Please Select")]'},
   chooseRegionLink: {xpath: "//li/a[contains(text(),'Kharkivs')]"},
   step1Toggle: {xpath: '//a[@data-toggle="collapse"]'},
-  continueButton: {xpath: '//input[@value="Continue"]'},
+  continueButton: {xpath: '(//input[@value="Continue"])[last()]'},
   agree: {xpath: '//label[@for="agree1"]'},
   confirmOrderButton: {xpath: '//input[@value="Confirm Order"]'},
   
