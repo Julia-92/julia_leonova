@@ -59,16 +59,16 @@ module.exports = {
 
   
 
-  grabItemPrice() {
-   I.grabTextFrom(this.itemPriceText);
+  async grabItemPrice() {
+    await I.grabTextFrom(this.itemPriceText);
   },
   
-  grabFlatShippingRate() {
-    I.grabTextFrom(this.flatShippingRateText);
+  async grabFlatShippingRate() {
+    await I.grabTextFrom(this.flatShippingRateText);
   },
 
-  grabTotalPrice() {
-    I.grabTextFrom(this.totalPriceText);
+  async grabTotalPrice() {
+    await I.grabTextFrom(this.totalPriceText);
   },
 
 }
