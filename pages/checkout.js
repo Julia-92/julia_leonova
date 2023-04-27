@@ -57,9 +57,7 @@ module.exports = {
     I.click(this.confirmOrderButton);
   },
 
-  clickRemoveItems() {
-    I.click(this.removeItems);
-  },
+  
 
   grabItemPrice() {
     I.grabTextFrom(this.itemPriceText);

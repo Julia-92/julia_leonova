@@ -46,5 +46,9 @@ module.exports = {
   clickStep1Toggle() {
     I.click(this.step1Toggle);
   },
+
+  clickRemoveItems() {
+    I.click(this.removeItems);
+  },
   
 }
