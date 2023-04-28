@@ -21,7 +21,7 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
         homePage.clickRemoveItems();
     };
     
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
+    I.openCatNailClippersProduct();
     productPage.clickSelectField();
     productPage.clickColor();
     productPage.clickAddToCartButton();
@@ -47,7 +47,7 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
     checkoutPage.clickConfirmOrderButton();
     checkoutPage.verifyOrderPageName();
 
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
+    I.openCatNailClippersProduct();
     const priceInProductPage = await productPage.grabPriceInProductPage();
     const colorPriceInProductPage = await productPage.grabColorPrice();
     console.log(colorPriceInProductPage);
