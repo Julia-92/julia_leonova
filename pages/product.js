@@ -27,8 +27,7 @@ module.exports = {
 
   async grabColorPrice() {
     const colorPrice = await I.grabTextFrom(this.colorField);
-    const numcolorPrice = +colorPrice.slice(8);
-    const totalNumColorPrice = +numcolorPrice.splice(1);
-    return totalNumColorPrice;
+    const numcolorPrice = +colorPrice.replaceAll(/[^0-9\.]/g, "");
+    return numcolorPrice;
   },
 }
