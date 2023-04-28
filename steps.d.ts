@@ -2,12 +2,15 @@
 type steps_file = typeof import('./steps_file.js');
 type homePage = typeof import('./pages/home.js');
 type registerPage = typeof import('./pages/register.js');
-type created_accountPage = typeof import('./pages/created_account.js');
+type checkoutPage = typeof import('./pages/checkout.js');
+type productPage = typeof import('./pages/product.js');
+type checkPricesPage = typeof import('./pages/checkPrices.js');
+type ChaiWrapper = import('codeceptjs-chai');
 
 declare namespace CodeceptJS {
-  interface SupportObject { I: I, current: any, homePage: homePage, registerPage: registerPage, created_accountPage: created_accountPage }
-  interface Methods extends Playwright {}
-  interface I extends ReturnType<steps_file> {}
+  interface SupportObject { I: I, current: any, homePage: homePage, registerPage: registerPage, checkoutPage: checkoutPage, productPage: productPage, checkPricesPage: checkPricesPage }
+  interface Methods extends Playwright, ChaiWrapper {}
+  interface I extends ReturnType<steps_file>, WithTranslation<ChaiWrapper> {}
   namespace Translation {
     interface Actions {}
   }

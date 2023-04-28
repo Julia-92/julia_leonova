@@ -1,10 +1,26 @@
-// in this file you can append custom step methods to 'I' object
+const home = require("./pages/home");
+
+
+const STORE_URL = "http://opencart.qatestlab.net/index.php";
 
 module.exports = function() {
-  return actor({
+const signInButton = {xpath: '//a[text()="Sign In"]'};
+const emailField = {css: 'input#input-email'};
+const passwordField = {xpath: '//input[@name="password"]'};
+  
+return actor({
+    openSore() {
+      this.amOnPage(STORE_URL);
+    },
 
-    // Define custom steps here, use 'this' to access default methods of I.
-    // It is recommended to place a general 'login' function here.
+    login(user) {
+      this.openSore();
+      this.click(signInButton);
+      this.fillField(emailField, user.email);
+      this.fillField(passwordField, user.password);
+      home.clickSubmitButton();
+      this.see("My Orders");
+    }
 
   });
 }
