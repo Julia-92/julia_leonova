@@ -29,7 +29,7 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
     homePage.clickCheckout();
     checkoutPage.fillCheckoutForm2(USER);
     checkoutPage.clickCountryToggle();
-    
+
     for (let i = 0; i < 4; i++) {
         checkoutPage.clickContinueButton();
     };
@@ -46,6 +46,11 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
     I.assertEqual(itemPrice+flatShippingRate, totalPrice, 'prices are not in match');
     checkoutPage.clickConfirmOrderButton();
     I.see('Your order has been placed!');
+
+    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
+    const priceInItemPage = await checkoutPage.grabPriceInItemPage();
+    console.log(priceInItemPage);
+    I.assertEqual(priceInItemPage, itemPrice, 'prices are not in match');
 });
 
 
