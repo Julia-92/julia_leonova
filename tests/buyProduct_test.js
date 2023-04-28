@@ -48,9 +48,10 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
     checkoutPage.verifyOrderPageName();
 
     I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
-    const priceInItemPage = await checkoutPage.grabPriceInItemPage();
-    console.log(priceInItemPage);
-    I.assertEqual(priceInItemPage, itemPrice, 'prices are not in match');
+    const priceInProductPage = await productPage.grabPriceInProductPage();
+    const colorPriceInProductPage = await productPage.grabColorPrice();
+    console.log(colorPriceInProductPage);
+    I.assertEqual(priceInProductPage+colorPriceInProductPage, itemPrice, 'prices are not in match');
 });
 
 

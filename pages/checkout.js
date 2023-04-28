@@ -20,7 +20,6 @@ module.exports = {
   itemPriceText: {xpath: '(//tbody/tr/td)[last()]'},
   flatShippingRateText: {xpath: '(//tfoot/tr/td[@class="text-right"])[4]'},
   totalPriceText: {xpath: '(//tfoot/tr/td[@class="text-right"])[6]'},
-  priceInItemPageText: {xpath: '//div[@class="price"]/span'},
 
   fillCheckoutForm2(checkout) {
     I.fillField(this.firstNameField, checkout.firstName);
@@ -78,12 +77,6 @@ module.exports = {
     const TotalPrice = await I.grabTextFrom(this.totalPriceText);
     const numTotalPrice = +TotalPrice.slice(1);
     return numTotalPrice;
-  },
-
-  async grabPriceInItemPage() {
-    const PriceInItemPage = await I.grabTextFrom(this.priceInItemPageText);
-    const numPriceInItemPage = +PriceInItemPage.slice(1);
-    return numPriceInItemPage;
   },
 
 }
