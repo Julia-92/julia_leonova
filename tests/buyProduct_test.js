@@ -45,7 +45,7 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
     console.log(totalPrice);
     I.assertEqual(itemPrice+flatShippingRate, totalPrice, 'prices are not in match');
     checkoutPage.clickConfirmOrderButton();
-    I.see('Your order has been placed!');
+    checkoutPage.verifyOrderPageName();
 
     I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
     const priceInItemPage = await checkoutPage.grabPriceInItemPage();

@@ -58,6 +58,10 @@ module.exports = {
     I.click(this.confirmOrderButton);
   },
 
+  verifyOrderPageName() {
+    I.see('Your order has been placed!');
+  },
+
   async grabItemPrice() {
     const ItemPrice = await I.grabTextFrom(this.itemPriceText);
     const numItemPrice = +ItemPrice.slice(1);
