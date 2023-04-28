@@ -16,8 +16,8 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
    
     I.login(USER);
     homePage.clickDropdownCartIcon();
-    let numOfElements = await I.grabNumberOfVisibleElements('//i[@class="linearicons-trash"]');
-    if(numOfElements) {
+    let removeProductIcon = await homePage.grabRemoveProductIcon();
+    if(removeProductIcon) {
         homePage.clickRemoveItems();
     };
     

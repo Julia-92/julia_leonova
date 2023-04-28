@@ -8,6 +8,7 @@ module.exports = {
   checkoutLink: {xpath: '//a[@class="btn-primary btn-r"]'},
   guestCheckout: {xpath: '(//div[@class="radio"])[2]'},
   step1Continue: {xpath: '//input[@id="button-account"]'},
+  removeProductIcon: {xpath: '//i[@class="linearicons-trash"]'},
 
   removeItems: {xpath: '//i[@class="linearicons-trash"]'},
 
@@ -51,4 +52,7 @@ module.exports = {
     I.click(this.removeItems);
   },
   
+  async grabRemoveProductIcon() {
+    return await I.grabNumberOfVisibleElements(this.removeProductIcon);
+  },
 }

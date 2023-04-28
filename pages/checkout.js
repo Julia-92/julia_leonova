@@ -21,7 +21,7 @@ module.exports = {
   flatShippingRateText: {xpath: '(//tfoot/tr/td[@class="text-right"])[4]'},
   totalPriceText: {xpath: '(//tfoot/tr/td[@class="text-right"])[6]'},
 
-  fillCheckoutForm2(checkout) {
+   fillCheckoutForm2(checkout) {
     I.fillField(this.firstNameField, checkout.firstName);
     I.fillField(this.lastNameField, checkout.lastName); 
     I.fillField(this.addressField, checkout.address); 
