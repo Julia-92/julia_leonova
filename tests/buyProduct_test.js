@@ -22,7 +22,7 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
    
     I.login(USER);
     homePage.clickDropdownCartIcon();
-    homePage.clearCart();
+    await homePage.clearCart();
     
     
     I.openCatNailClippersProduct();
