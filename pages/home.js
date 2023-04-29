@@ -12,6 +12,9 @@ module.exports = {
 
   removeItems: {xpath: '//i[@class="linearicons-trash"]'},
 
+
+  
+
   clickGuestCheckout() {
     I.click(this.guestCheckout);
   },
@@ -20,8 +23,18 @@ module.exports = {
     I.click(this.step1Continue);
   },
 
+/*
   verifyRegisterPageName() {
     I.see('Register Account');
+  },
+
+  verifyOrderPageName() {
+    I.see('Your order has been placed!');
+  },
+  */
+
+  verifyPage(expectedText) {
+    I.see(expectedText);
   },
 
   clickMyAccountButton() {
@@ -54,5 +67,12 @@ module.exports = {
   
   async grabRemoveProductIcon() {
     return await I.grabNumberOfVisibleElements(this.removeProductIcon);
+  },
+
+  async clearCart() {
+    let removeProductIcon = await this.grabRemoveProductIcon();
+    if(removeProductIcon) {
+        this.clickRemoveItems();
+    };
   },
 }

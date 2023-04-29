@@ -21,7 +21,7 @@ module.exports = {
   flatShippingRateText: {xpath: '(//tfoot/tr/td[@class="text-right"])[4]'},
   totalPriceText: {xpath: '(//tfoot/tr/td[@class="text-right"])[6]'},
 
-   fillCheckoutForm2(checkout) {
+  fillBillingForm(checkout) {
     I.fillField(this.firstNameField, checkout.firstName);
     I.fillField(this.lastNameField, checkout.lastName); 
     I.fillField(this.addressField, checkout.address); 
@@ -57,25 +57,24 @@ module.exports = {
     I.click(this.confirmOrderButton);
   },
 
-  verifyOrderPageName() {
-    I.see('Your order has been placed!');
-  },
-
+// don`t need
+/*
   async grabItemPrice() {
     const ItemPrice = await I.grabTextFrom(this.itemPriceText);
     const numItemPrice = +ItemPrice.slice(1);
     return numItemPrice;
   },
+  */
   
   async grabFlatShippingRate() {
-    const FlatShippingRate = await I.grabTextFrom(this.flatShippingRateText);
-    const numFlatShippingRate = +FlatShippingRate.slice(1);
+    const flatShippingRate = await I.grabTextFrom(this.flatShippingRateText);
+    const numFlatShippingRate = +flatShippingRate.slice(1);
     return numFlatShippingRate;
   },
 
   async grabTotalPrice() {
-    const TotalPrice = await I.grabTextFrom(this.totalPriceText);
-    const numTotalPrice = +TotalPrice.slice(1);
+    const totalPrice = await I.grabTextFrom(this.totalPriceText);
+    const numTotalPrice = +totalPrice.slice(1);
     return numTotalPrice;
   },
 

@@ -20,8 +20,8 @@ module.exports = {
   },
 
   async grabPriceInProductPage() {
-    const PriceInProductPage = await I.grabTextFrom(this.priceInProductPageText);
-    const numPriceInProductPage = +PriceInProductPage.slice(1);
+    const priceInProductPage = await I.grabTextFrom(this.priceInProductPageText);
+    const numPriceInProductPage = +priceInProductPage.slice(1);
     return numPriceInProductPage;
   },
 

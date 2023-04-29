@@ -7,7 +7,13 @@ const USER = {
     address: "Yesenina, 11",
     city: "Kharkiv",
     postcode: "61072",
-}
+};
+
+  // Verify register page
+  //verifyPage('Register Account', 'Register Account');
+  
+  // Verify order page
+  //verifyPage('Order Confirmation', 'Your order has been placed!');
 
 
 Feature('purchase');
@@ -16,42 +22,39 @@ Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage })
    
     I.login(USER);
     homePage.clickDropdownCartIcon();
-    let removeProductIcon = await homePage.grabRemoveProductIcon();
-    if(removeProductIcon) {
-        homePage.clickRemoveItems();
-    };
+    homePage.clearCart();
+    
     
     I.openCatNailClippersProduct();
+    const priceInProductPage = await productPage.grabPriceInProductPage();
+    const colorPriceInProductPage = await productPage.grabColorPrice();
+    console.log(colorPriceInProductPage);
+    
     productPage.clickSelectField();
     productPage.clickColor();
     productPage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
     homePage.clickCheckout();
-    checkoutPage.fillCheckoutForm2(USER);
+    checkoutPage.fillBillingForm(USER);
     checkoutPage.clickCountryToggle();
 
-    for (let i = 0; i < 4; i++) {
-        checkoutPage.clickContinueButton();
-    };
+    while (I.seeElement(checkoutPage.continueButton)) {
+        I.click(checkoutPage.continueButton);
+      }
 
     checkoutPage.clickAgree();
     checkoutPage.clickContinueButton();
 
-    const itemPrice = await checkoutPage.grabItemPrice();
-    console.log(itemPrice);
+    //const itemPrice = await checkoutPage.grabItemPrice();
+    //console.log(itemPrice);
     const flatShippingRate = await checkoutPage.grabFlatShippingRate();
     console.log(flatShippingRate);
     const totalPrice = await checkoutPage.grabTotalPrice();
     console.log(totalPrice);
-    I.assertEqual(itemPrice+flatShippingRate, totalPrice, 'prices are not in match');
     checkoutPage.clickConfirmOrderButton();
-    checkoutPage.verifyOrderPageName();
-
-    I.openCatNailClippersProduct();
-    const priceInProductPage = await productPage.grabPriceInProductPage();
-    const colorPriceInProductPage = await productPage.grabColorPrice();
-    console.log(colorPriceInProductPage);
-    I.assertEqual(priceInProductPage+colorPriceInProductPage, itemPrice, 'prices are not in match');
+    homePage.verifyPage('Your order has been placed!');
+    
+    I.assertEqual(priceInProductPage+colorPriceInProductPage+flatShippingRate, totalPrice, 'prices are not in match');
 });
 
 
