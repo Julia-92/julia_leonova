@@ -17,8 +17,7 @@ Scenario.only(
     I.login(USER);
     homePage.clickDropdownCartIcon();
     homePage.clearCart();
-    
-    
+
     I.openCatNailClippersProduct();
     const priceInProductPage = await productPage.grabPriceInProductPage();
     const colorPriceInProductPage = await productPage.grabColorPrice();
@@ -32,19 +31,7 @@ Scenario.only(
     checkoutPage.fillBillingForm(USER);
     checkoutPage.clickCountryToggle();
 
-    /*
-    while (I.seeElement(checkoutPage.continueButton) && !I.seeElement(checkoutPage.agree)) {
-        I.click(checkoutPage.continueButton);
-      }
-      */
-
-
-      await checkoutPage.clickContinueButton();
-
-    //checkoutPage.clickAgree();
-    //checkoutPage.clickContinueButton();
-    //const itemPrice = await checkoutPage.grabItemPrice();
-    //console.log(itemPrice);
+    await checkoutPage.clickContinueButton();
     const flatShippingRate = await checkoutPage.grabFlatShippingRate();
     console.log(flatShippingRate);
     const totalPrice = await checkoutPage.grabTotalPrice();
