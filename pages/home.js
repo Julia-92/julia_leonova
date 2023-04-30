@@ -68,11 +68,12 @@ module.exports = {
   async grabRemoveProductIcon() {
     return await I.grabNumberOfVisibleElements(this.removeProductIcon);
   },
-
+/*
   async clearCart() {
     let removeProductIcon = await this.grabRemoveProductIcon();
     if(removeProductIcon) {
         this.clickRemoveItems();
     };
   },
+  */
 }
