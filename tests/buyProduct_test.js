@@ -16,7 +16,7 @@ Scenario.only(
   async ({ I, homePage, checkoutPage, productPage }) => {
     I.login(USER);
     homePage.clickDropdownCartIcon();
-    //homePage.clearCart();
+    homePage.clearCart();
     
     
     I.openCatNailClippersProduct();

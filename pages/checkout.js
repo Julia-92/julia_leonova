@@ -80,6 +80,8 @@ module.exports = {
     return await tryTo(() => I.seeElement(this.agree));
   },
 
+  //with true false
+  /*
   async clickContinueButton() {
     let continueButtonExists = true;
     while (continueButtonExists) {
@@ -95,4 +97,30 @@ module.exports = {
       };
     };
   },
+  */
+
+  //while
+  /*
+  async clickContinueButton() {
+    while (await this.seeContinue()) {
+      if (await this.checkAgreeExist()) {
+        I.click(this.agree);
+      }
+      I.click(this.continueButton);
+      I.wait(1);
+    };
+  },
+  */
+
+  //for
+  async clickContinueButton() {
+    for (let continueButtonExists = await this.seeContinue(); continueButtonExists; continueButtonExists = await this.seeContinue()) {
+      if (await this.checkAgreeExist()) {
+        I.click(this.agree);
+      }
+      I.click(this.continueButton);
+      I.wait(1);
+    };
+  },
+  
 };
