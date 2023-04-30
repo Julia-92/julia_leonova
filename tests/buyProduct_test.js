@@ -31,8 +31,7 @@ Before(({ I }) => {
  //I.login(USER);
 });
 
-Data(urlsFromFile).Scenario("buy product",
-  async ({ I, current, homePage, checkoutPage, productPage }) => {
+Data(urlsFromFile).Scenario("buy product", async ({ I, current, homePage, checkoutPage, productPage }) => {
     I.amOnPage(current);
     homePage.clearCart();
 
@@ -71,3 +70,7 @@ Data(urlsFromFile).Scenario("buy product",
     */
   },
 );
+
+After(async ({ homePage }) => {
+  await homePage.signOut()
+ });

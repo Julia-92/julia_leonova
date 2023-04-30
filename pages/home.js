@@ -12,6 +12,7 @@ module.exports = {
 
   removeItems: { xpath: '//i[@class="linearicons-trash"]' },
   dropDownCartText: { xpath: '//li/p[.="Your shopping cart is empty!"]' },
+  logoutButton: { xpath: '//a[.="Sign Out"]' },
   
 
   clickGuestCheckout() {
@@ -79,4 +80,16 @@ module.exports = {
       console.log("You can't buy this product!");
     }
   },
+
+  //logout
+  async seeSignOutText() {
+    return await tryTo(() =>I.seeElement(this.logoutButton));
+  },
+
+  async signOut() {
+    if (await this.seeSignOutText()) {
+      I.click(this.logoutButton);
+    }
+  },
+
 };
