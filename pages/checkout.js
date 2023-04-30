@@ -80,8 +80,8 @@ module.exports = {
     I.seeElement(this.agree);
   },
 
-  seeContinue() {
-    I.seeElement(this.continueButton);
+  async seeContinue() {
+    return await tryTo(() =>I.seeElement(this.continueButton));
   },
 
   async checkAgreeExist() {
@@ -89,13 +89,12 @@ module.exports = {
   },
 
   async clickContinueButton() {
-    while (this.seeContinue()) {
+    while (await this.seeContinue()) {
       if (await this.checkAgreeExist()) {
         I.click(this.agree);
       } else {
-        I.click(this.continueButton);
+        I.click(await this.seeContinue());
       };
-      I.click(this.continueButton);
     }
   },
 };
