@@ -16,13 +16,9 @@ Scenario.only(
   async ({ I, homePage, checkoutPage, productPage }) => {
     I.login(USER);
     homePage.clickDropdownCartIcon();
-
-    let removeProductIcon = await homePage.grabRemoveProductIcon();
-    if (removeProductIcon) {
-      homePage.clickRemoveItems();
-    }
-    // await homePage.clearCart();
-
+    homePage.clearCart();
+    
+    
     I.openCatNailClippersProduct();
     const priceInProductPage = await productPage.grabPriceInProductPage();
     const colorPriceInProductPage = await productPage.grabColorPrice();
