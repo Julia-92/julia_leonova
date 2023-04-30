@@ -43,10 +43,6 @@ module.exports = {
     I.click(this.chooseRegionLink);
   },
 
-  clickContinueButton() {
-    I.click(this.continueButton);
-  },
-
   clickAgree() {
     I.click(this.agree);
   },
@@ -93,7 +89,7 @@ module.exports = {
       if (await this.checkAgreeExist()) {
         I.click(this.agree);
       } else {
-        I.click(await this.seeContinue());
+        I.click(this.continueButton);
       };
     }
   },
