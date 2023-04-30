@@ -72,10 +72,6 @@ module.exports = {
     return numTotalPrice;
   },
 
-  seeAgree() {
-    I.seeElement(this.agree);
-  },
-
   async seeContinue() {
     return await tryTo(() =>I.seeElement(this.continueButton));
   },
@@ -85,12 +81,18 @@ module.exports = {
   },
 
   async clickContinueButton() {
-    while (await this.seeContinue()) {
+    let continueButtonExists = true;
+    while (continueButtonExists) {
       if (await this.checkAgreeExist()) {
         I.click(this.agree);
-      } else {
         I.click(this.continueButton);
+        I.wait(1);
+      } else if (await this.seeContinue()) {
+        I.click(this.continueButton);
+        I.wait(1);
+      } else {
+        continueButtonExists = false;
       };
-    }
+    };
   },
 };
