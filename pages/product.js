@@ -2,17 +2,23 @@ const { I } = inject();
 
 module.exports = {
 
-  selectField: {xpath: '//div/a[.="--- Please Select ---"]'},
+  selectColorSizeField: {xpath: '(//div/a[.="--- Please Select ---"])[1]'},
   colorField: {xpath: '(//ul[@class="sbOptions"]/li/a)[2]'},
   addToCartButton: {xpath: '//button[@id="button-cart"]'},
   priceInProductPageText: {xpath: '//div[@class="price"]/span'},
+  sizeField: {xpath: '(//div[@class="sbHolder"]/ul/li/a)[6]'},
+  
 
-  clickSelectField() {
-    I.click(this.selectField);
+  clickSelectColorSizeField() {
+    I.click(this.selectColorField);
   },
 
   clickColor() {
     I.click(this.colorField);
+  },
+
+  clickSize() {
+    I.click(this.sizeField);
   },
 
   clickAddToCartButton() {
@@ -29,5 +35,41 @@ module.exports = {
     const colorPrice = await I.grabTextFrom(this.colorField);
     const numcolorPrice = +colorPrice.replaceAll(/[^0-9\.]/g, "");
     return numcolorPrice;
+  },
+
+  async grabSizePrice() {
+    const sizePrice = await I.grabTextFrom(this.sizeField);
+    const numSizePrice = +sizePrice.replaceAll(/[^0-9\.]/g, "");
+    return numSizePrice;
+  },
+
+  async seeColorSizeDropdownExist() {
+    return await tryTo(() =>I.seeElement(this.selectColorSizeField));
+  },
+
+  async selectColorSize() {
+    if (await this.seeColorSizeDropdownExist()) {
+      I.click(this.selectColorSizeField);
+    }
+  },
+
+  async seeColorFieldExist() {
+    return await tryTo(() => I.seeElement(this.colorField));
+  },
+
+  async selectColorField() {
+    if (await this.seeColorFieldExist()) {
+      I.click(this.colorField);
+    }
+  },
+
+  async seeSizeFieldExist() {
+    return await tryTo(() => I.seeElement(this.sizeField));
+  },
+
+  async selectSizeField() {
+    if (await this.seeSizeFieldExist()) {
+      I.click(this.colorField);
+    }
   },
 }
