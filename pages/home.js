@@ -1,15 +1,18 @@
 const { I } = inject();
 
 module.exports = {
-  myAccountButton: {xpath: '(//span[.="My Account"])'},
-  myRegisterLink: {xpath: '(//a[.="Register"])'},
-  submitButton: {xpath: '//input[@type="submit"]'},
-  dropdownCartIcon: {xpath: '//button[@class="toggle"]'},
-  checkoutLink: {xpath: '//a[@class="btn-primary btn-r"]'},
-  guestCheckout: {xpath: '(//div[@class="radio"])[2]'},
-  step1Continue: {xpath: '//input[@id="button-account"]'},
-
-  removeItems: {xpath: '//i[@class="linearicons-trash"]'},
+  myAccountButton: { xpath: '(//span[.="My Account"])' },
+  myRegisterLink: { xpath: '(//a[.="Register"])' },
+  submitButton: { xpath: '//input[@type="submit"]' },
+  dropdownCartIcon: { xpath: '//button[@class="toggle"]' },
+  checkoutLink: { xpath: '//a[@class="btn-primary btn-r"]' },
+  guestCheckout: { xpath: '(//div[@class="radio"])[2]' },
+  step1Continue: { xpath: '//input[@id="button-account"]' },
+  removeProductIcon: { xpath: '//i[@class="linearicons-trash"]' },
+  removeItems: { xpath: '//i[@class="linearicons-trash"]' },
+  dropDownCartText: { xpath: '//li/p[.="Your shopping cart is empty!"]' },
+  totalPriceInDropDownCart: { xpath: '(//div[@class="t-row"]/div[@class="text-right"])[2]' },
+  
 
   clickGuestCheckout() {
     I.click(this.guestCheckout);
@@ -19,8 +22,8 @@ module.exports = {
     I.click(this.step1Continue);
   },
 
-  verifyRegisterPageName() {
-    I.see('Register Account');
+  verifyPage(expectedText) {
+    I.see(expectedText);
   },
 
   clickMyAccountButton() {
@@ -50,5 +53,40 @@ module.exports = {
   clickRemoveItems() {
     I.click(this.removeItems);
   },
+
+  async grabRemoveProductIcon() {
+    return await I.grabNumberOfVisibleElements(this.removeProductIcon);
+  },
+
+  async clearCart() {
+    let removeProductIcon = await this.grabRemoveProductIcon();
+    if (removeProductIcon) {
+      I.click(this.removeItems);
+    }
+  },
+
+  async cartWithoutProduct() {
+    return await I.grabNumberOfVisibleElements(this.dropDownCartText);
+  },
+
+  //can`t buy product
+  async seeDropDownCartText() {
+    const dropDownCartText = await tryTo(() => I.seeElement(this.dropDownCartText));
+    console.log(dropDownCartText);
+    return dropDownCartText;
+  },
+
+  async checkDropDownCartText() {
+    if (await this.seeDropDownCartText()) {
+      console.log("You can't buy this product!");
+    }
+  },
+
+  async grabTotalPriceInDropDownCart() {
+    const totalPriceInDropDownCart = await I.grabTextFrom(this.totalPriceInDropDownCart);
+    const strTotalPriceInDropDownCart = I.parsePrice(totalPriceInDropDownCart);
+    return strTotalPriceInDropDownCart;
+    
+  },
   
-}
+};

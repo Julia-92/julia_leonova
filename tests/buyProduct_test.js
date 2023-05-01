@@ -1,59 +1,91 @@
+let urls = new DataTable(["url"]);
+urls.add([
+  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=45",
+]);
+urls.add([
+  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=43",
+]);
+urls.add([
+  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=73",
+]);
+
+urlsArray = [
+  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=45",
+  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=43",
+  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=73",
+];
+
 const USER = {
-    email: "yulialvju@gmail.com",
-    password: "Use54321!",
-    firstName: "Julia",
-    lastName: "Leonova",
-    phone: "+380932849875",
-    address: "Yesenina, 11",
-    city: "Kharkiv",
-    postcode: "61072",
-}
+  email: "yulialvju@gmail.com",
+  password: "Use54321!",
+  firstName: "Julia",
+  lastName: "Leonova",
+  phone: "+380932849875",
+  address: "Yesenina, 11",
+  city: "Kharkiv",
+  postcode: "61072",
+};
 
+const fileReader = require("../helpers/fileReader");
+const urlsFromFile = fileReader.readFileContent();
+console.log(urlsFromFile);
 
-Feature('purchase');
+Feature("purchase");
 
-Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage }) => {
-   
-    I.login(USER);
-    homePage.clickDropdownCartIcon();
-    let numOfElements = await I.grabNumberOfVisibleElements('//i[@class="linearicons-trash"]');
-    if(numOfElements) {
-        homePage.clickRemoveItems();
-    };
-    
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
-    productPage.clickSelectField();
-    productPage.clickColor();
-    productPage.clickAddToCartButton();
-    homePage.clickDropdownCartIcon();
-    homePage.clickCheckout();
-    checkoutPage.fillCheckoutForm2(USER);
-    checkoutPage.clickCountryToggle();
-
-    for (let i = 0; i < 4; i++) {
-        checkoutPage.clickContinueButton();
-    };
-
-    checkoutPage.clickAgree();
-    checkoutPage.clickContinueButton();
-
-    const itemPrice = await checkoutPage.grabItemPrice();
-    console.log(itemPrice);
-    const flatShippingRate = await checkoutPage.grabFlatShippingRate();
-    console.log(flatShippingRate);
-    const totalPrice = await checkoutPage.grabTotalPrice();
-    console.log(totalPrice);
-    I.assertEqual(itemPrice+flatShippingRate, totalPrice, 'prices are not in match');
-    checkoutPage.clickConfirmOrderButton();
-    checkoutPage.verifyOrderPageName();
-
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
-    const priceInProductPage = await productPage.grabPriceInProductPage();
-    const colorPriceInProductPage = await productPage.grabColorPrice();
-    console.log(colorPriceInProductPage);
-    I.assertEqual(priceInProductPage+colorPriceInProductPage, itemPrice, 'prices are not in match');
+Before(({ I }) => {
+  I.login(USER);
 });
 
+//Add to use file with urls: Data(urlsFromFile).Scenario and current to parameters
 
+Scenario("buy product", async ({ I, homePage, checkoutPage, productPage }) => {
+  //I.amOnPage(current);
+  homePage.clearCart();
 
+  I.openCatNailClippersProduct();
+  const priceInProductPage = await productPage.grabPriceInProductPage();
+  const colorPriceInProductPage = await productPage.grabColorPrice();
+  console.log(colorPriceInProductPage);
+  console.log(priceInProductPage);
 
+  await productPage.selectColorSize();
+  await productPage.selectColorField();
+  await productPage.selectColorSize();
+  await productPage.selectSizeField();
+
+  productPage.clickAddToCartButton();
+  homePage.clickDropdownCartIcon();
+  //const totalPriceInDropDownCart =
+  //await homePage.grabTotalPriceInDropDownCart();
+  //console.log(totalPriceInDropDownCart);
+  
+
+  //await homePage.checkDropDownCartText();
+  homePage.clickCheckout();
+  checkoutPage.fillBillingForm(USER);
+  checkoutPage.clickCountryToggle();
+
+  await checkoutPage.clickContinueButton();
+  //const flatShippingRate = await checkoutPage.grabFlatShippingRate();
+  //console.log(flatShippingRate);
+  const totalPrice = await checkoutPage.grabTotalPrice();
+  const responce = await I.sendGetRequest("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&date=20200302&json");
+  const usdRate = responce.data[0].rate;
+  console.log('Price in UAH: ' + totalPrice*usdRate);
+  
+  //console.log(totalPrice);
+  //checkoutPage.clickConfirmOrderButton();
+  //homePage.verifyPage("Your order has been placed!");
+
+  /*
+    I.assertEqual(
+      priceInProductPage + colorPriceInProductPage + flatShippingRate,
+      totalPrice,
+      "prices are not in match"
+    );
+    */
+});
+
+After(async ({ I }) => {
+  //await I.signOut();
+});

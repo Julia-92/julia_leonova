@@ -1,18 +1,22 @@
 const { I } = inject();
 
 module.exports = {
+  selectColorSizeField: { xpath: '(//div/a[.="--- Please Select ---"])[1]' },
+  colorField: { xpath: '(//ul[@class="sbOptions"]/li/a)[2]' },
+  addToCartButton: { xpath: '//button[@id="button-cart"]' },
+  priceInProductPageText: { xpath: '//div[@class="price"]/span' },
+  sizeField: { xpath: '(//div[@class="sbHolder"]/ul/li/a)[6]' },
 
-  selectField: {xpath: '//div/a[.="--- Please Select ---"]'},
-  colorField: {xpath: '(//ul[@class="sbOptions"]/li/a)[2]'},
-  addToCartButton: {xpath: '//button[@id="button-cart"]'},
-  priceInProductPageText: {xpath: '//div[@class="price"]/span'},
-
-  clickSelectField() {
-    I.click(this.selectField);
+  clickSelectColorSizeField() {
+    I.click(this.selectColorField);
   },
 
   clickColor() {
     I.click(this.colorField);
+  },
+
+  clickSize() {
+    I.click(this.sizeField);
   },
 
   clickAddToCartButton() {
@@ -20,14 +24,54 @@ module.exports = {
   },
 
   async grabPriceInProductPage() {
-    const PriceInProductPage = await I.grabTextFrom(this.priceInProductPageText);
-    const numPriceInProductPage = +PriceInProductPage.slice(1);
+    const priceInProductPage = await I.grabTextFrom(this.priceInProductPageText);
+    const numPriceInProductPage = I.parsePrice(priceInProductPage);
     return numPriceInProductPage;
   },
 
   async grabColorPrice() {
-    const colorPrice = await I.grabTextFrom(this.colorField);
-    const numcolorPrice = +colorPrice.replaceAll(/[^0-9\.]/g, "");
-    return numcolorPrice;
+    if (await this.seeColorSizeDropdownExist()) {
+      const colorPrice = await I.grabTextFrom(this.colorField);
+      const numcolorPrice = I.parsePrice(colorPrice);
+      return numcolorPrice;
+    }
   },
-}
+
+  async grabSizePrice() {
+    if (await this.seeColorSizeDropdownExist()) {
+      const sizePrice = await I.grabTextFrom(this.sizeField);
+      const numSizePrice = I.parsePrice(sizePrice);
+      return numSizePrice;
+    }
+  },
+
+  async seeColorSizeDropdownExist() {
+    return await tryTo(() => I.seeElement(this.selectColorSizeField));
+  },
+
+  async selectColorSize() {
+    if (await this.seeColorSizeDropdownExist()) {
+      I.click(this.selectColorSizeField);
+    }
+  },
+
+  async seeColorFieldExist() {
+    return await tryTo(() => I.seeElement(this.colorField));
+  },
+
+  async selectColorField() {
+    if (await this.seeColorFieldExist()) {
+      I.click(this.colorField);
+    }
+  },
+
+  async seeSizeFieldExist() {
+    return await tryTo(() => I.seeElement(this.sizeField));
+  },
+
+  async selectSizeField() {
+    if (await this.seeSizeFieldExist()) {
+      I.click(this.colorField);
+    }
+  },
+};
