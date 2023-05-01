@@ -55,20 +55,20 @@ module.exports = {
   /*
   async grabItemPrice() {
     const ItemPrice = await I.grabTextFrom(this.itemPriceText);
-    const numItemPrice = +ItemPrice.slice(1);
+    const numItemPrice = I.parsePrice(ItemPrice);
     return numItemPrice;
   },
   */
 
   async grabFlatShippingRate() {
     const flatShippingRate = await I.grabTextFrom(this.flatShippingRateText);
-    const numFlatShippingRate = +flatShippingRate.slice(1);
+    const numFlatShippingRate = I.parsePrice(flatShippingRate);
     return numFlatShippingRate;
   },
 
   async grabTotalPrice() {
     const totalPrice = await I.grabTextFrom(this.totalPriceText);
-    const numTotalPrice = +totalPrice.slice(1);
+    const numTotalPrice = I.parsePrice(totalPrice);
     return numTotalPrice;
   },
 

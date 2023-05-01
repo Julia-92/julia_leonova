@@ -1,13 +1,11 @@
 const { I } = inject();
 
 module.exports = {
-
-  selectColorSizeField: {xpath: '(//div/a[.="--- Please Select ---"])[1]'},
-  colorField: {xpath: '(//ul[@class="sbOptions"]/li/a)[2]'},
-  addToCartButton: {xpath: '//button[@id="button-cart"]'},
-  priceInProductPageText: {xpath: '//div[@class="price"]/span'},
-  sizeField: {xpath: '(//div[@class="sbHolder"]/ul/li/a)[6]'},
-  
+  selectColorSizeField: { xpath: '(//div/a[.="--- Please Select ---"])[1]' },
+  colorField: { xpath: '(//ul[@class="sbOptions"]/li/a)[2]' },
+  addToCartButton: { xpath: '//button[@id="button-cart"]' },
+  priceInProductPageText: { xpath: '//div[@class="price"]/span' },
+  sizeField: { xpath: '(//div[@class="sbHolder"]/ul/li/a)[6]' },
 
   clickSelectColorSizeField() {
     I.click(this.selectColorField);
@@ -27,24 +25,28 @@ module.exports = {
 
   async grabPriceInProductPage() {
     const priceInProductPage = await I.grabTextFrom(this.priceInProductPageText);
-    const numPriceInProductPage = +priceInProductPage.slice(1);
+    const numPriceInProductPage = I.parsePrice(priceInProductPage);
     return numPriceInProductPage;
   },
 
   async grabColorPrice() {
-    const colorPrice = await I.grabTextFrom(this.colorField);
-    const numcolorPrice = +colorPrice.replaceAll(/[^0-9\.]/g, "");
-    return numcolorPrice;
+    if (await this.seeColorSizeDropdownExist()) {
+      const colorPrice = await I.grabTextFrom(this.colorField);
+      const numcolorPrice = I.parsePrice(colorPrice);
+      return numcolorPrice;
+    }
   },
 
   async grabSizePrice() {
-    const sizePrice = await I.grabTextFrom(this.sizeField);
-    const numSizePrice = +sizePrice.replaceAll(/[^0-9\.]/g, "");
-    return numSizePrice;
+    if (await this.seeColorSizeDropdownExist()) {
+      const sizePrice = await I.grabTextFrom(this.sizeField);
+      const numSizePrice = I.parsePrice(sizePrice);
+      return numSizePrice;
+    }
   },
 
   async seeColorSizeDropdownExist() {
-    return await tryTo(() =>I.seeElement(this.selectColorSizeField));
+    return await tryTo(() => I.seeElement(this.selectColorSizeField));
   },
 
   async selectColorSize() {
@@ -72,4 +74,4 @@ module.exports = {
       I.click(this.colorField);
     }
   },
-}
+};

@@ -1,7 +1,4 @@
-const {
-  setHeadlessWhen,
-  setCommonPlugins
-} = require('@codeceptjs/configure');
+const { setHeadlessWhen, setCommonPlugins } = require("@codeceptjs/configure");
 // turn on headless mode when running with HEADLESS=true environment variable
 // export HEADLESS=true && npx codeceptjs run
 setHeadlessWhen(process.env.HEADLESS);
@@ -11,23 +8,35 @@ setCommonPlugins();
 
 /** @type {CodeceptJS.MainConfig} */
 exports.config = {
-  tests: './tests/*_test.js',
-  output: './output',
+  tests: "./tests/*_test.js",
+  output: "./output",
   helpers: {
     Playwright: {
-      url: 'http://opencart.qatestlab.net/index.php',
-      waitForNavigation: 'networkidle',
+      url: "http://opencart.qatestlab.net/index.php",
+      waitForNavigation: "networkidle",
       waitForTimeout: 5000,
       show: true,
-      browser: 'chromium'
+      browser: "chromium",
     },
 
-    "ChaiWrapper": {
-      "require": "codeceptjs-chai",
+    ChaiWrapper: {
+      require: "codeceptjs-chai",
+    },
+
+    HelperPage_helpers: {
+      require: "./helpers/HelperPage_helpers.js",
+    },
+
+    REST: {
+      defaultHeaders: {
+        'Content-type' : 'aplication/json',
+        'Accept' : 'aplication/json',
+      },
     },
   },
+
   include: {
-    I: './steps_file.js',
+    I: "./steps_file.js",
     homePage: "./pages/home.js",
     registerPage: "./pages/register.js",
     checkoutPage: "./pages/checkout.js",
@@ -39,5 +48,5 @@ exports.config = {
     pauseOnFail: {},
   },
 
-  name: 'julia_leonova'
-}
+  name: "julia_leonova",
+};

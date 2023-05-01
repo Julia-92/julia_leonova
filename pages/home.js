@@ -9,9 +9,10 @@ module.exports = {
   guestCheckout: { xpath: '(//div[@class="radio"])[2]' },
   step1Continue: { xpath: '//input[@id="button-account"]' },
   removeProductIcon: { xpath: '//i[@class="linearicons-trash"]' },
-
   removeItems: { xpath: '//i[@class="linearicons-trash"]' },
   dropDownCartText: { xpath: '//li/p[.="Your shopping cart is empty!"]' },
+  totalPriceInDropDownCart: { xpath: '(//div[@class="t-row"]/div[@class="text-right"])[2]' },
+  
 
   clickGuestCheckout() {
     I.click(this.guestCheckout);
@@ -81,5 +82,11 @@ module.exports = {
     }
   },
 
+  async grabTotalPriceInDropDownCart() {
+    const totalPriceInDropDownCart = await I.grabTextFrom(this.totalPriceInDropDownCart);
+    const strTotalPriceInDropDownCart = I.parsePrice(totalPriceInDropDownCart);
+    return strTotalPriceInDropDownCart;
+    
+  },
   
 };
