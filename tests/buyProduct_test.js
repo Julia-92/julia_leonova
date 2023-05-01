@@ -28,7 +28,7 @@ console.log(urlsFromFile);
 Feature("purchase");
 
 Before(({ I }) => {
- //I.login(USER);
+ I.login(USER);
 });
 
 Data(urlsFromFile).Scenario("buy product", async ({ I, current, homePage, checkoutPage, productPage }) => {
@@ -71,6 +71,6 @@ Data(urlsFromFile).Scenario("buy product", async ({ I, current, homePage, checko
   },
 );
 
-After(async ({ homePage }) => {
-  await homePage.signOut()
+After(async ({ I }) => {
+  await I.signOut();
  });

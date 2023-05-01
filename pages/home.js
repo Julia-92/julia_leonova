@@ -12,8 +12,6 @@ module.exports = {
 
   removeItems: { xpath: '//i[@class="linearicons-trash"]' },
   dropDownCartText: { xpath: '//li/p[.="Your shopping cart is empty!"]' },
-  logoutButton: { xpath: '//a[.="Sign Out"]' },
-  
 
   clickGuestCheckout() {
     I.click(this.guestCheckout);
@@ -72,7 +70,9 @@ module.exports = {
 
   //can`t buy product
   async seeDropDownCartText() {
-    return await tryTo(() =>I.seeElement(this.dropDownCartText));
+    const dropDownCartText = await tryTo(() => I.seeElement(this.dropDownCartText));
+    console.log(dropDownCartText);
+    return dropDownCartText;
   },
 
   async checkDropDownCartText() {
@@ -81,15 +81,5 @@ module.exports = {
     }
   },
 
-  //logout
-  async seeSignOutText() {
-    return await tryTo(() =>I.seeElement(this.logoutButton));
-  },
-
-  async signOut() {
-    if (await this.seeSignOutText()) {
-      I.click(this.logoutButton);
-    }
-  },
-
+  
 };
