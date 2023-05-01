@@ -33,7 +33,7 @@ console.log(urlsFromFile);
 Feature("purchase");
 
 Before(({ I }) => {
-  //I.login(USER);
+  I.login(USER);
 });
 
 //Add to use file with urls: Data(urlsFromFile).Scenario and current to parameters
@@ -55,22 +55,24 @@ Scenario("buy product", async ({ I, homePage, checkoutPage, productPage }) => {
 
   productPage.clickAddToCartButton();
   homePage.clickDropdownCartIcon();
-  const totalPriceInDropDownCart =
-    await homePage.grabTotalPriceInDropDownCart();
-  console.log(totalPriceInDropDownCart);
-  const responce = await I.sendGetRequest("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&date=20200302&json");
-  const usdRate = responce.data[0].rate;
-  console.log('Price in UAH: ' + totalPriceInDropDownCart*usdRate);
+  //const totalPriceInDropDownCart =
+  //await homePage.grabTotalPriceInDropDownCart();
+  //console.log(totalPriceInDropDownCart);
+  
 
   //await homePage.checkDropDownCartText();
-  //homePage.clickCheckout();
-  //checkoutPage.fillBillingForm(USER);
-  //checkoutPage.clickCountryToggle();
+  homePage.clickCheckout();
+  checkoutPage.fillBillingForm(USER);
+  checkoutPage.clickCountryToggle();
 
-  //await checkoutPage.clickContinueButton();
+  await checkoutPage.clickContinueButton();
   //const flatShippingRate = await checkoutPage.grabFlatShippingRate();
   //console.log(flatShippingRate);
-  //const totalPrice = await checkoutPage.grabTotalPrice();
+  const totalPrice = await checkoutPage.grabTotalPrice();
+  const responce = await I.sendGetRequest("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&date=20200302&json");
+  const usdRate = responce.data[0].rate;
+  console.log('Price in UAH: ' + totalPrice*usdRate);
+  
   //console.log(totalPrice);
   //checkoutPage.clickConfirmOrderButton();
   //homePage.verifyPage("Your order has been placed!");
