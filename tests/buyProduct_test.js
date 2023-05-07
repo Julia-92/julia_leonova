@@ -1,4 +1,5 @@
 let urls = new DataTable(["url"]);
+
 urls.add([
   "http://opencart.qatestlab.net/index.php?route=product/product&product_id=45",]);
 urls.add(["http://opencart.qatestlab.net/index.php?route=product/product&product_id=43",]);
@@ -33,22 +34,26 @@ Before(({ I }) => {
 
 Data(urlsFromFile).Scenario("buy product", async ({ I, current, homePage, checkoutPage, productPage }) => {
     I.amOnPage(current);
-    homePage.clearCart();
+    homePage.clickDropdownCartIcon();
+    await homePage.clearCart();
 
-    I.openCatNailClippersProduct();
+    //I.openCatNailClippersProduct();
     const priceInProductPage = await productPage.grabPriceInProductPage();
-    const colorPriceInProductPage = await productPage.grabColorPrice();
-    console.log(colorPriceInProductPage);
-
+    console.log(priceInProductPage);
+    
     await productPage.selectColorSize();
     await productPage.selectColorField();
     await productPage.selectColorSize();
+    const colorPriceInProductPage = await productPage.grabColorPrice();
+    console.log(colorPriceInProductPage);
     await productPage.selectSizeField();
+    const sizePriceInProductPage = await productPage.grabSizePrice();
+    console.log(sizePriceInProductPage);
     
     
     productPage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
-    await homePage.checkDropDownCartText();
+
     //homePage.clickCheckout();
     //checkoutPage.fillBillingForm(USER);
     //checkoutPage.clickCountryToggle();

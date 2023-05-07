@@ -30,12 +30,12 @@ module.exports = function () {
 
     //logout
 
-    async seeSignOutText() {
+    async checkSignOutText() {
       return await tryTo(() => this.seeElement(logoutButton));
     },
 
     async signOut() {
-      if (await this.seeSignOutText()) {
+      if (await this.checkSignOutText()) {
         //I.click(this.logoutButton);
         this.click(logoutButton);
       }
