@@ -59,7 +59,7 @@ module.exports = {
   async clearCart() {
     for (let removeProductIcon = await this.checkRemoveIconExist(); removeProductIcon; removeProductIcon = await this.checkRemoveIconExist()) {
       I.click(this.removeProductLocator);
+      I.wait(1);
     };
-    I.wait(1);
   },
 };
