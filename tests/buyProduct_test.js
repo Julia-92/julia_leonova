@@ -1,16 +1,3 @@
-let urls = new DataTable(["url"]);
-
-urls.add([
-  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=45",]);
-urls.add(["http://opencart.qatestlab.net/index.php?route=product/product&product_id=43",]);
-urls.add(["http://opencart.qatestlab.net/index.php?route=product/product&product_id=73",]);
-
-urlsArray = [
-  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=45",
-  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=43",
-  "http://opencart.qatestlab.net/index.php?route=product/product&product_id=73",
-];
-
 const USER = {
   email: "yulialvju@gmail.com",
   password: "Use54321!",
@@ -32,12 +19,11 @@ Before(({ I }) => {
  I.login(USER);
 });
 
-Data(urlsFromFile).Scenario("buy product", async ({ I, current, homePage, checkoutPage, productPage }) => {
+Data(urlsFromFile).Scenario("buy product", async ({ I, current, homePage, productPage }) => {
     I.amOnPage(current);
     homePage.clickDropdownCartIcon();
     await homePage.clearCart();
 
-    //I.openCatNailClippersProduct();
     const priceInProductPage = await productPage.grabPriceInProductPage();
     console.log(priceInProductPage);
     
@@ -53,26 +39,6 @@ Data(urlsFromFile).Scenario("buy product", async ({ I, current, homePage, checko
     
     productPage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
-
-    //homePage.clickCheckout();
-    //checkoutPage.fillBillingForm(USER);
-    //checkoutPage.clickCountryToggle();
-
-    //await checkoutPage.clickContinueButton();
-    //const flatShippingRate = await checkoutPage.grabFlatShippingRate();
-    //console.log(flatShippingRate);
-    //const totalPrice = await checkoutPage.grabTotalPrice();
-    //console.log(totalPrice);
-    //checkoutPage.clickConfirmOrderButton();
-    //homePage.verifyPage("Your order has been placed!");
-
-    /*
-    I.assertEqual(
-      priceInProductPage + colorPriceInProductPage + flatShippingRate,
-      totalPrice,
-      "prices are not in match"
-    );
-    */
   },
 );
 

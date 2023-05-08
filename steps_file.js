@@ -15,10 +15,6 @@ module.exports = function () {
       this.amOnPage(STORE_URL);
     },
 
-    openCatNailClippersProduct() {
-      this.amOnPage(CAT_NAIL_CLIPPERS_URL);
-    },
-
     login(user) {
       this.openSore();
       this.click(signInButton);
