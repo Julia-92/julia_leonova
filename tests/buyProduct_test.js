@@ -39,7 +39,7 @@ Data(urlsFromFile).Scenario("buy product", async ({ I, current, checkoutPage, ho
     productPage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
 
-    if (!(I.dontSeeElement(homePage.checkoutLink))) {
+    if (I.dontSeeElement(homePage.checkoutLink)) {
       throw new Error("Checkout Button dosnt exist"); 
     } else if (I.seeElement(homePage.checkoutLink)) {
       I.click(homePage.checkoutLink);
