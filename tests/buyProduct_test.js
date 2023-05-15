@@ -19,7 +19,7 @@ Before(({ I }) => {
  I.login(USER);
 });
 
-Data(urlsFromFile).Scenario("buy product", async ({ I, current, homePage, productPage }) => {
+Data(urlsFromFile).Scenario("buy product", async ({ I, current, checkoutPage, homePage, productPage }) => {
     I.amOnPage(current);
     homePage.clickDropdownCartIcon();
     await homePage.clearCart();
@@ -39,6 +39,25 @@ Data(urlsFromFile).Scenario("buy product", async ({ I, current, homePage, produc
     
     productPage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
+
+    await homePage.breakIfCheckoutNotExist();
+    I.waitForElement(checkoutPage.continueButton);
+    checkoutPage.fillBillingForm(USER);
+    checkoutPage.clickCountryToggle();
+
+    await checkoutPage.clickContinueButton();
+    const flatShippingRate = await checkoutPage.grabFlatShippingRate();
+    console.log(flatShippingRate);
+    const totalPrice = await checkoutPage.grabTotalPrice();
+    console.log(totalPrice);
+    checkoutPage.clickConfirmOrderButton();
+    homePage.verifyPage("Your order has been placed!");
+
+    I.assertEqual(
+      priceInProductPage + colorPriceInProductPage + sizePriceInProductPage + flatShippingRate,
+      totalPrice,
+      "prices are not in match"
+    );
   },
 );
 

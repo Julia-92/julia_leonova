@@ -38,28 +38,51 @@ module.exports = {
   clickDropdownCartIcon() {
     I.click(this.dropdownCartIcon);
   },
+  
+// it dosn`t use
+  async clickCheckout() {
+    if (await this.checkcheckoutLinkExist()) {
+      I.click(this.checkoutLink);
+    } else {
+      return;
+    }
+  },
 
-  clickCheckout() {
-    I.click(this.checkoutLink);
+  async breakIfCheckoutNotExist() {
+    if (await I.dontSeeElement(this.checkoutLink)) {
+      throw new Error('Елемент Checkout не знайдено. Виконання тесту перервано.');
+    } else if (await I.seeElement(this.checkoutLink)) {
+      await I.click(this.checkoutLink);
+    }
+  },
+
+  async checkcheckoutLinkExist() {
+    return await tryTo(() => I.seeElement(this.checkoutLink));
   },
 
   clickStep1Toggle() {
     I.click(this.step1Toggle);
   },
-  
-// check items to remove (remove if dont`t use)
+
+  // check items to remove (remove if dont`t use)
   async checkRemoveIconExist() {
     return await tryTo(() => I.seeElement(this.removeProductLocator));
   },
 
   async grabRemoveProductIcon() {
-    return await tryTo(() => I.grabNumberOfVisibleElements(this.removeProductLocator));
+    return await tryTo(() =>
+      I.grabNumberOfVisibleElements(this.removeProductLocator)
+    );
   },
 
   async clearCart() {
-    for (let removeProductIcon = await this.checkRemoveIconExist(); removeProductIcon; removeProductIcon = await this.checkRemoveIconExist()) {
+    for (
+      let removeProductIcon = await this.checkRemoveIconExist();
+      removeProductIcon;
+      removeProductIcon = await this.checkRemoveIconExist()
+    ) {
       I.click(this.removeProductLocator);
       I.wait(1);
-    };
+    }
   },
 };
