@@ -36,11 +36,23 @@ Data(urlsFromFile).Scenario("buy product", async ({ I, current, checkoutPage, ho
     const sizePriceInProductPage = await productPage.grabSizePrice();
     console.log(sizePriceInProductPage);
     
-    
     productPage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
 
-    await homePage.breakIfCheckoutNotExist();
+    if (!(I.dontSeeElement(homePage.checkoutLink))) {
+      throw new Error("Checkout Button dosnt exist"); 
+    } else if (I.seeElement(homePage.checkoutLink)) {
+      I.click(homePage.checkoutLink);
+    };
+    //const checkoutButtonExists = I.seeElement(homePage.checkoutLink);
+
+    /*
+    if ((await I.dontSeeElement(homePage.checkoutLink))) {
+      throw new Error("Елемент Checkout не знайдено. Виконання тесту перервано."); 
+    };
+    */
+
+    //await homePage.breakIfCheckoutNotExist();
     I.waitForElement(checkoutPage.continueButton);
     checkoutPage.fillBillingForm(USER);
     checkoutPage.clickCountryToggle();

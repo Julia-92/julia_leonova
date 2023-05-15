@@ -38,16 +38,17 @@ module.exports = {
   clickDropdownCartIcon() {
     I.click(this.dropdownCartIcon);
   },
-  
+
 // it dosn`t use
   async clickCheckout() {
-    if (await this.checkcheckoutLinkExist()) {
+    if (await this.checkCheckoutLinkExist()) {
       I.click(this.checkoutLink);
     } else {
       return;
     }
   },
-
+  
+//it isnt used
   async breakIfCheckoutNotExist() {
     if (await I.dontSeeElement(this.checkoutLink)) {
       throw new Error('Елемент Checkout не знайдено. Виконання тесту перервано.');
@@ -56,7 +57,7 @@ module.exports = {
     }
   },
 
-  async checkcheckoutLinkExist() {
+  async checkCheckoutLinkExist() {
     return await tryTo(() => I.seeElement(this.checkoutLink));
   },
 
