@@ -28,6 +28,8 @@ module.exports = {
       const priceInProductPage = await I.grabTextFrom(this.priceInProductPageText);
       const numPriceInProductPage = +priceInProductPage.slice(1);
       return numPriceInProductPage;
+    } else {
+      return 0;
     };
   },
 
@@ -40,6 +42,8 @@ module.exports = {
     const colorPrice = await I.grabTextFrom(this.colorField);
     const numcolorPrice = +colorPrice.replaceAll(/[^0-9\.]/g, "");
     return numcolorPrice;
+    } else {
+      return 0;
     };
   },
 
@@ -48,6 +52,8 @@ module.exports = {
       const sizePrice = await I.grabTextFrom(this.sizeField);
       const numSizePrice = +sizePrice.replaceAll(/[^0-9\.]/g, "");
       return numSizePrice;
+    } else {
+      return 0;
     };
   },
 

@@ -39,20 +39,12 @@ Data(urlsFromFile).Scenario("buy product", async ({ I, current, checkoutPage, ho
     productPage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
 
-    if (I.dontSeeElement(homePage.checkoutLink)) {
-      throw new Error("Checkout Button dosnt exist"); 
+    if (!(await homePage.checkCheckoutLinkExist())) {
+      throw new Error("Checkout Button doesn't exist"); 
     } else if (I.seeElement(homePage.checkoutLink)) {
       I.click(homePage.checkoutLink);
     };
-    //const checkoutButtonExists = I.seeElement(homePage.checkoutLink);
 
-    /*
-    if ((await I.dontSeeElement(homePage.checkoutLink))) {
-      throw new Error("Елемент Checkout не знайдено. Виконання тесту перервано."); 
-    };
-    */
-
-    //await homePage.breakIfCheckoutNotExist();
     I.waitForElement(checkoutPage.continueButton);
     checkoutPage.fillBillingForm(USER);
     checkoutPage.clickCountryToggle();
