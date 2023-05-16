@@ -41,9 +41,9 @@ Data(urlsFromFile).Scenario("buy product", async ({ I, current, checkoutPage, ho
 
     if (!(await homePage.checkCheckoutLinkExist())) {
       throw new Error("Checkout Button doesn't exist"); 
-    } else if (I.seeElement(homePage.checkoutLink)) {
-      I.click(homePage.checkoutLink);
     };
+    
+    I.click(homePage.checkoutLink);
 
     I.waitForElement(checkoutPage.continueButton);
     checkoutPage.fillBillingForm(USER);
