@@ -51,15 +51,6 @@ module.exports = {
     I.click(this.confirmOrderButton);
   },
 
-  // don`t need
-  /*
-  async grabItemPrice() {
-    const ItemPrice = await I.grabTextFrom(this.itemPriceText);
-    const numItemPrice = +ItemPrice.slice(1);
-    return numItemPrice;
-  },
-  */
-
   async grabFlatShippingRate() {
     const flatShippingRate = await I.grabTextFrom(this.flatShippingRateText);
     const numFlatShippingRate = +flatShippingRate.slice(1);
