@@ -1,59 +1,70 @@
 const USER = {
-    email: "yulialvju@gmail.com",
-    password: "Use54321!",
-    firstName: "Julia",
-    lastName: "Leonova",
-    phone: "+380932849875",
-    address: "Yesenina, 11",
-    city: "Kharkiv",
-    postcode: "61072",
-}
+  email: "yulialvju@gmail.com",
+  password: "Use54321!",
+  firstName: "Julia",
+  lastName: "Leonova",
+  phone: "+380932849875",
+  address: "Yesenina, 11",
+  city: "Kharkiv",
+  postcode: "61072",
+};
 
+const fileReader = require("../helpers/fileReader");
+const urlsFromFile = fileReader.readFileContent();
+console.log(urlsFromFile);
 
-Feature('purchase');
+Feature("purchase");
 
-Scenario.only('buy product',  async ({ I, homePage, checkoutPage, productPage }) => {
-   
-    I.login(USER);
+Before(({ I }) => {
+ I.login(USER);
+});
+
+Data(urlsFromFile).Scenario("buy product", async ({ I, current, checkoutPage, homePage, productPage }) => {
+    I.amOnPage(current);
     homePage.clickDropdownCartIcon();
-    let numOfElements = await I.grabNumberOfVisibleElements('//i[@class="linearicons-trash"]');
-    if(numOfElements) {
-        homePage.clickRemoveItems();
-    };
+    await homePage.clearCart();
+
+    const priceInProductPage = await productPage.grabPriceInProductPage();
+    console.log(priceInProductPage);
     
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
-    productPage.clickSelectField();
-    productPage.clickColor();
+    await productPage.selectColorSize();
+    await productPage.selectColorField();
+    await productPage.selectColorSize();
+    const colorPriceInProductPage = await productPage.grabColorPrice();
+    console.log(colorPriceInProductPage);
+    await productPage.selectSizeField();
+    const sizePriceInProductPage = await productPage.grabSizePrice();
+    console.log(sizePriceInProductPage);
+    
     productPage.clickAddToCartButton();
     homePage.clickDropdownCartIcon();
-    homePage.clickCheckout();
-    checkoutPage.fillCheckoutForm2(USER);
+
+    if (!(await homePage.checkCheckoutLinkExist())) {
+      throw new Error("Checkout Button doesn't exist"); 
+    };
+    
+    I.click(homePage.checkoutLink);
+
+    I.waitForElement(checkoutPage.continueButton);
+    checkoutPage.fillBillingForm(USER);
     checkoutPage.clickCountryToggle();
 
-    for (let i = 0; i < 4; i++) {
-        checkoutPage.clickContinueButton();
-    };
-
-    checkoutPage.clickAgree();
-    checkoutPage.clickContinueButton();
-
-    const itemPrice = await checkoutPage.grabItemPrice();
-    console.log(itemPrice);
+    await checkoutPage.clickContinueButton();
     const flatShippingRate = await checkoutPage.grabFlatShippingRate();
     console.log(flatShippingRate);
     const totalPrice = await checkoutPage.grabTotalPrice();
     console.log(totalPrice);
-    I.assertEqual(itemPrice+flatShippingRate, totalPrice, 'prices are not in match');
     checkoutPage.clickConfirmOrderButton();
-    checkoutPage.verifyOrderPageName();
+    homePage.verifyPage("Your order has been placed!");
 
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=74');
-    const priceInProductPage = await productPage.grabPriceInProductPage();
-    const colorPriceInProductPage = await productPage.grabColorPrice();
-    console.log(colorPriceInProductPage);
-    I.assertEqual(priceInProductPage+colorPriceInProductPage, itemPrice, 'prices are not in match');
-});
+    I.assertEqual(
+      priceInProductPage + colorPriceInProductPage + sizePriceInProductPage + flatShippingRate,
+      totalPrice,
+      "prices are not in match"
+    );
+  },
+);
 
-
-
-
+After(async ({ I }) => {
+  await I.signOut();
+ });

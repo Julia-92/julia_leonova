@@ -34,5 +34,10 @@ exports.config = {
     productPage: "./pages/product.js",
   },
 
+  tryTo: {
+    enabled: true,
+    pauseOnFail: {},
+  },
+
   name: 'julia_leonova'
 }

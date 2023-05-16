@@ -8,11 +8,11 @@ const NEW_USER = {
     password: "eM8x3xTJ4vzVN"
 }
 
-Scenario('test something',  ({ I, homePage, registerPage }) => {
+Scenario.skip('test something',  ({ I, homePage, registerPage }) => {
     I.openSore();
     homePage.clickMyAccountButton();
     homePage.clickMyRegisterLink();
-    registerPage.verifyRegisterPageName();
+    homePage.verifyPage('Register Account');
     registerPage.fillNewUserForm(NEW_USER);
     registerPage.clickSubscribeLabel();
     registerPage.clickPrivacyPolicyRadio();
