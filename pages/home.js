@@ -8,8 +8,7 @@ module.exports = {
   checkoutLink: { xpath: '//a[@class="btn-primary btn-r"]' },
   guestCheckout: { xpath: '(//div[@class="radio"])[2]' },
   step1Continue: { xpath: '//input[@id="button-account"]' },
-  removeProductIcon: { xpath: '//i[@class="linearicons-trash"]' },
-  removeItems: { xpath: '//i[@class="linearicons-trash"]' },
+  removeProductLocator: { xpath: '//i[@class="linearicons-trash"]' },
   dropDownCartText: { xpath: '//li/p[.="Your shopping cart is empty!"]' },
   totalPriceInDropDownCart: { xpath: '(//div[@class="t-row"]/div[@class="text-right"])[2]' },
   
@@ -42,43 +41,49 @@ module.exports = {
     I.click(this.dropdownCartIcon);
   },
 
-  clickCheckout() {
-    I.click(this.checkoutLink);
+  async clickCheckout() {
+    if (await this.checkCheckoutLinkExist()) {
+      I.click(this.checkoutLink);
+    } else {
+      return;
+    }
+  },
+  
+  async breakIfCheckoutNotExist() {
+    if (await I.dontSeeElement(this.checkoutLink)) {
+      throw new Error('Елемент Checkout не знайдено. Виконання тесту перервано.');
+    } else if (await I.seeElement(this.checkoutLink)) {
+      await I.click(this.checkoutLink);
+    }
+  },
+
+  async checkCheckoutLinkExist() {
+    return await tryTo(() => I.seeElement(this.checkoutLink));
   },
 
   clickStep1Toggle() {
     I.click(this.step1Toggle);
   },
 
-  clickRemoveItems() {
-    I.click(this.removeItems);
+  // check items to remove (remove if dont`t use)
+  async checkRemoveIconExist() {
+    return await tryTo(() => I.seeElement(this.removeProductLocator));
   },
 
   async grabRemoveProductIcon() {
-    return await I.grabNumberOfVisibleElements(this.removeProductIcon);
+    return await tryTo(() =>
+      I.grabNumberOfVisibleElements(this.removeProductLocator)
+    );
   },
 
   async clearCart() {
-    let removeProductIcon = await this.grabRemoveProductIcon();
-    if (removeProductIcon) {
-      I.click(this.removeItems);
-    }
-  },
-
-  async cartWithoutProduct() {
-    return await I.grabNumberOfVisibleElements(this.dropDownCartText);
-  },
-
-  //can`t buy product
-  async seeDropDownCartText() {
-    const dropDownCartText = await tryTo(() => I.seeElement(this.dropDownCartText));
-    console.log(dropDownCartText);
-    return dropDownCartText;
-  },
-
-  async checkDropDownCartText() {
-    if (await this.seeDropDownCartText()) {
-      console.log("You can't buy this product!");
+    for (
+      let removeProductIcon = await this.checkRemoveIconExist();
+      removeProductIcon;
+      removeProductIcon = await this.checkRemoveIconExist()
+    ) {
+      I.click(this.removeProductLocator);
+      I.wait(1);
     }
   },
 

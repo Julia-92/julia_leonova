@@ -15,10 +15,6 @@ module.exports = function () {
       this.amOnPage(STORE_URL);
     },
 
-    openCatNailClippersProduct() {
-      this.amOnPage(CAT_NAIL_CLIPPERS_URL);
-    },
-
     login(user) {
       this.openSore();
       this.click(signInButton);
@@ -30,12 +26,12 @@ module.exports = function () {
 
     //logout
 
-    async seeSignOutText() {
+    async checkSignOutText() {
       return await tryTo(() => this.seeElement(logoutButton));
     },
 
     async signOut() {
-      if (await this.seeSignOutText()) {
+      if (await this.checkSignOutText()) {
         //I.click(this.logoutButton);
         this.click(logoutButton);
       }

@@ -50,28 +50,28 @@ module.exports = {
   },
 
   async selectColorSize() {
-    if (await this.seeColorSizeDropdownExist()) {
+    if (await this.checkColorSizeDropdownExist()) {
       I.click(this.selectColorSizeField);
-    }
+    };
   },
 
-  async seeColorFieldExist() {
+  async checkColorFieldExist() {
     return await tryTo(() => I.seeElement(this.colorField));
   },
 
   async selectColorField() {
-    if (await this.seeColorFieldExist()) {
+    if (await this.checkColorFieldExist()) {
       I.click(this.colorField);
-    }
+    };
   },
 
-  async seeSizeFieldExist() {
+  async checkSizeFieldExist() {
     return await tryTo(() => I.seeElement(this.sizeField));
   },
 
   async selectSizeField() {
-    if (await this.seeSizeFieldExist()) {
-      I.click(this.colorField);
-    }
+    if (await this.checkSizeFieldExist()) {
+      I.click(this.sizeField);
+    };
   },
 };

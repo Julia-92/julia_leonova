@@ -51,15 +51,6 @@ module.exports = {
     I.click(this.confirmOrderButton);
   },
 
-  // don`t need
-  /*
-  async grabItemPrice() {
-    const ItemPrice = await I.grabTextFrom(this.itemPriceText);
-    const numItemPrice = I.parsePrice(ItemPrice);
-    return numItemPrice;
-  },
-  */
-
   async grabFlatShippingRate() {
     const flatShippingRate = await I.grabTextFrom(this.flatShippingRateText);
     const numFlatShippingRate = I.parsePrice(flatShippingRate);
@@ -72,7 +63,7 @@ module.exports = {
     return numTotalPrice;
   },
 
-  async seeContinue() {
+  async checkContinue() {
     return await tryTo(() =>I.seeElement(this.continueButton));
   },
 
@@ -82,7 +73,7 @@ module.exports = {
 
   //for
   async clickContinueButton() {
-    for (let continueButtonExists = await this.seeContinue(); continueButtonExists; continueButtonExists = await this.seeContinue()) {
+    for (let continueButtonExists = await this.checkContinue(); continueButtonExists; continueButtonExists = await this.checkContinue()) {
       if (await this.checkAgreeExist()) {
         I.click(this.agree);
       }
@@ -91,35 +82,4 @@ module.exports = {
     };
   },
 
-  //with true false
-  /*
-  async clickContinueButton() {
-    let continueButtonExists = true;
-    while (continueButtonExists) {
-      if (await this.checkAgreeExist()) {
-        I.click(this.agree);
-        I.click(this.continueButton);
-        I.wait(1);
-      } else if (await this.seeContinue()) {
-        I.click(this.continueButton);
-        I.wait(1);
-      } else {
-        continueButtonExists = false;
-      };
-    };
-  },
-  */
-
-  //while
-  /*
-  async clickContinueButton() {
-    while (await this.seeContinue()) {
-      if (await this.checkAgreeExist()) {
-        I.click(this.agree);
-      }
-      I.click(this.continueButton);
-      I.wait(1);
-    };
-  },
-  */
 };
